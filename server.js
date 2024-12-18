@@ -7,6 +7,8 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 
+const trackRouter = require('./controllers/tracks')
+
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', ()=>{
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`)
@@ -14,6 +16,8 @@ mongoose.connection.on('connected', ()=>{
 
 app.use(express.json())
 app.use(cors())
+
+app.use('/track', trackRouter)
 
 app.listen(3000, ()=>{
   console.log(`Express app is ready`);
